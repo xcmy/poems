@@ -4,8 +4,6 @@ db = require("../lib").db
 
 
 router.get "/",(ctx)->
-
-
   ctx.body = "hhh"
 
 module.exports = router

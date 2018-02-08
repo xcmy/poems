@@ -47,25 +47,30 @@ init = ()->
       if filename.startsWith('poet.song')
         for k,index in file
           author = await db.model('author').findOne({where:{year:'宋',name:k.author}})
-          console.log("找不到作者==>题目"+k.title)
-          await db.model('poem').create({
-            author_id:author.id or null
-            author_name:author.name or k.author
-            paragraphs:k.paragraphs
-            title:k.title
-            strains:k.strains
-          })
+          if author
+            await db.model('poem').create({
+              author_id:author.id
+              author_name:author.name
+              paragraphs:k.paragraphs
+              title:k.title
+              strains:k.strains
+            })
+          else
+            console.log("找不到作者==>题目"+k.title)
       else if filename.startsWith('poet.tang')
         for k,index in file
           author = await db.model('author').findOne({where:{year:'唐',name:k.author}})
           throw new Error('找不到作者') if not author
-          await db.model('poem').create({
-            author_id:author.id
-            author_name:author.name
-            paragraphs:k.paragraphs
-            title:k.title
-            strains:k.strains
-          })
+          if author
+            await db.model('poem').create({
+              author_id:author.id
+              author_name:author.name
+              paragraphs:k.paragraphs
+              title:k.title
+              strains:k.strains
+            })
+          else
+            console.log("找不到作者==>题目"+k.title)
 
 
 exports.db = db = sequelize
