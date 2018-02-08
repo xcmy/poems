@@ -2,7 +2,7 @@ koa = require("koa")
 app = new koa()
 Router = require("koa-router")
 bodyParser = require("koa-bodyparser")
-
+global.Config = require('./config')
 
 #koa-body-parser初始化
 app.use bodyParser()

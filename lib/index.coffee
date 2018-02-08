@@ -1,7 +1,8 @@
 fs = require "fs"
 path = require 'path'
 Sequelize = require "sequelize"
-sequelize = new Sequelize("postgres://:@localhost:5432/tang",{logging:false})
+
+sequelize = new Sequelize(Config.db,{logging:false})
 
 
 loadModels = ->
@@ -19,12 +20,12 @@ sequelize.authenticate()
     await loadModels()
     console.log("db Connected success")
 
-    await sequelize.sync({force:true})
+#    await sequelize.sync({force:true})
 
     count = await db.model('author').count()
     if count is 0
       await initAuthor()
-#      await initPoems()
+      await initPoems()
 .catch (err)->
     console.log("db connected fail with err :"+err)
 

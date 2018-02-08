@@ -10,3 +10,23 @@
 | postgreSql | v10 |
 | CoffeeScript | version 2.1.1 |
 | node.js | v8.9.4 |
+
+
+### Database
+
+Database name setting in
+```
+/config/index.coffee
+```
+
+### Getting Started
+
+Follow the commands listed below.
+
+```
+$ npm install
+$ coffee index.coffee
+```
+
+
+
