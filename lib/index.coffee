@@ -22,14 +22,15 @@ sequelize.authenticate()
     await sequelize.sync({force:true})
 
     count = await db.model('author').count()
-    await init() if count is 0
-
-  .catch (err)->
+    if count is 0
+      await initAuthor()
+#      await initPoems()
+.catch (err)->
     console.log("db connected fail with err :"+err)
 
 
 
-init = ()->
+initAuthor = ()->
   fs.readdir path.join(__dirname,'../resource/'),(err,files)->
     for filename in files when filename.startsWith('authors')
       file = require("../resource/#{filename}")
@@ -42,21 +43,29 @@ init = ()->
             desc:k.desc
           })
 
+initPoems = ()->
+  fs.readdir path.join(__dirname,'../resource/'),(err,files)->
     for filename in files when filename.startsWith('poet')
+      file = require("../resource/#{filename}")
       for k,index in file
         author = await db.model('author').findOne({
           where:{
             year:if filename.startsWith('poet.song') then '宋' else '唐',
             name:k.author}
         })
-        throw new Error('找不到作者') if not author
-        await db.model('poem').create({
-          author_id:author.id or null
-          author_name:author.name or k.author or null
+        console.log('找不到作者') if not author
+        params = {
+          author_name:k.author or undefined
           paragraphs:k.paragraphs
           title:k.title
           strains:k.strains
-        })
+        }
+        if author
+          params.author_id = author.id
+          params.author_name = author.name
+        await db.model('poem').create(params)
+
+
 
 
 exports.db = db = sequelize
