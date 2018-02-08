@@ -8,8 +8,13 @@
 | env | version |
 | --- | --- |
 | postgreSql | v10 |
-| CoffeeScript | version 2.1.1 |
+| CoffeeScript | v2.1.1 |
 | node.js | v8.9.4 |
+
+
+### resource
+
+[https://github.com/chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry)
 
 
 ### Database
