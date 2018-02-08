@@ -23,15 +23,6 @@ app.use router.routes()
 
 
 
-
-
-
-
-file = require('./resource/authors.song')
-console.log(file.length)
-file1 = require('./resource/authors.tang')
-console.log(file1.length)
-
 require("./lib")
 
 app.listen 3000,(err)->
